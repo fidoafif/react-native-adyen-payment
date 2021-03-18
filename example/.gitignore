@@ -58,6 +58,5 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
-# Secrets
-.env
-!.env.example
+# Yarn
+yarn.lock
