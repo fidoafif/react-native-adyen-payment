@@ -67,6 +67,39 @@ export default {
             throw new Error(`${component} is not supported for ${Platform.OS} Platform`);
         }
     },
+    startCustomPaymentPromise(component,componentData,paymentDetails,paymentMethods){
+        const default_components = [DROPIN,IDEAL,MOLPAY_MALAYSIA,MOLPAY_THAILAND,MOLPAY_VIETNAM,DOTPAY,
+            EPS,ENTERCASH,OPEN_BANKING,SCHEME,SEPA,BCMC];
+        var supported_components;
+        if(Platform.OS === 'ios'){
+            supported_components = [APPLE_PAY];
+        }
+        else if (Platform.OS  === 'android') {
+            supported_components = [WECHAT_PAY_SDK,GOOGLE_PAY,AFTERPAY];
+        }
+        if(default_components.indexOf(component) !== -1 || supported_components.indexOf(component) !== -1){
+            return AdyenPayment.startCustomPaymentPromise(component,componentData,paymentDetails,JSON.stringify(paymentMethods))
+        }else{
+            throw new Error(`${component} is not supported for ${Platform.OS} Platform`);
+        }
+    },
+    startCustomPayment(component,componentData,paymentDetails,paymentMethods){
+        console.log(paymentMethods);
+        const default_components = [DROPIN,IDEAL,MOLPAY_MALAYSIA,MOLPAY_THAILAND,MOLPAY_VIETNAM,DOTPAY,
+            EPS,ENTERCASH,OPEN_BANKING,SCHEME,SEPA,BCMC];
+        var supported_components;
+        if(Platform.OS === 'ios'){
+            supported_components = [APPLE_PAY];
+        }
+        else if (Platform.OS  === 'android') {
+            supported_components = [WECHAT_PAY_SDK,GOOGLE_PAY,AFTERPAY];
+        }
+        if(default_components.indexOf(component) !== -1 || supported_components.indexOf(component) !== -1){
+            return AdyenPayment.startCustomPayment(component,componentData,paymentDetails,JSON.stringify(paymentMethods))
+        }else{
+            throw new Error(`${component} is not supported for ${Platform.OS} Platform`);
+        }
+    },
     /**
      * @callback mOnSuccess
      * @param {Object} message

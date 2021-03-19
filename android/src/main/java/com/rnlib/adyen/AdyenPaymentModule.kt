@@ -173,6 +173,66 @@ class AdyenPaymentModule(private var reactContext : ReactApplicationContext) : R
         this.showPayment(component,componentData,paymentDetails)
     }
 
+    @ReactMethod
+    fun startPaymentPromise(component : String,componentData : ReadableMap,paymentDetails : ReadableMap, paymentMethods : String, promise : Promise){
+        this.promise = promise
+        this.showCustomPayment(component,componentData,paymentDetails,paymentMethods)
+    }
+
+    @ReactMethod
+    fun startCustomPayment(component : String,componentData : ReadableMap,paymentDetails : ReadableMap, paymentMethods : String) {
+        this.emitEvent = true
+        this.showCustomPayment(component,componentData,paymentDetails,paymentMethods)
+    }
+
+    fun showCustomPayment(component : String,componentData : ReadableMap,paymentDetails : ReadableMap, paymentMethods : String) {
+        paymentData = ReactNativeUtils.convertMapToJson(paymentDetails)
+        val compData = ReactNativeUtils.convertMapToJson(componentData)
+        val additionalData: MutableMap<String, String> = linkedMapOf()
+        
+        // tasks available
+        val pmApiResponse : PaymentMethodsApiResponse = PaymentMethodsApiResponse.SERIALIZER.deserialize(JSONObject(paymentMethods))
+        val paymentMethodsList : MutableList<PaymentMethod> = mutableListOf<PaymentMethod>()
+
+        Log.d("C===>", paymentMethods.toString())
+        if(component != "dropin"){
+            for (each in pmApiResponse.paymentMethods!!) {
+                Log.i(TAG,each.toString())
+                if (each.type == component) {
+                    paymentMethodsList.add(each)
+                    break
+                }
+            }
+            pmApiResponse.setPaymentMethods(paymentMethodsList)
+            paymentMethodsApiResponse = pmApiResponse
+            when(component){
+                PaymentMethodTypes.GOOGLE_PAY -> showGooglePayComponent(compData)
+                PaymentMethodTypes.SCHEME -> showCardComponent(compData)
+                PaymentMethodTypes.IDEAL -> showIdealComponent(compData)
+                PaymentMethodTypes.MOLPAY_MALAYSIA -> showMOLPayComponent(component,compData)
+                PaymentMethodTypes.MOLPAY_THAILAND -> showMOLPayComponent(component,compData)
+                PaymentMethodTypes.MOLPAY_VIETNAM -> showMOLPayComponent(component,compData)
+                PaymentMethodTypes.DOTPAY -> showDotPayComponent(compData)
+                PaymentMethodTypes.EPS -> showEPSComponent(compData)
+                PaymentMethodTypes.ENTERCASH -> showEnterCashComponent(compData)
+                PaymentMethodTypes.OPEN_BANKING -> showOpenBankingComponent(compData)
+                PaymentMethodTypes.SEPA -> showSEPAComponent(compData)
+                PaymentMethodTypes.BCMC -> showBCMCComponent(compData)
+                PaymentMethodTypes.WECHAT_PAY_SDK -> showWeChatPayComponent(component,compData)
+                PaymentMethodTypes.AFTER_PAY -> showAfterPayComponent(compData)
+                else -> {
+                    val evtObj : JSONObject = JSONObject()
+                    evtObj.put("code","ERROR_UNKNOWN_PAYMENT_METHOD")
+                    evtObj.put("message","Unknown Payment Method")
+                    emitDeviceEvent("onError",ReactNativeUtils.convertJsonToMap(evtObj))
+                }
+            }
+        }else{
+            paymentMethodsApiResponse = pmApiResponse
+            showDropInComponent(compData)
+        }
+    }
+
     fun showPayment(component : String,componentData : ReadableMap,paymentDetails : ReadableMap) {
         paymentData = ReactNativeUtils.convertMapToJson(paymentDetails)
         val compData = ReactNativeUtils.convertMapToJson(componentData)
