@@ -133,45 +133,45 @@ export const AdyenExample = () => {
     console.log('handleDropInButtonPress');
     setStatus(STATUS.initiated);
 
-    try {
-      AdyenPayment.startPayment(
-        AdyenPayment.SCHEME,
-        MOCK_COMPONENT_DATA,
-        MOCK_PAYMENT_DETAILS,
-      );
-    } catch (err) {
-      console.error(err);
-    }
+    // try {
+    //   AdyenPayment.startPayment(
+    //     AdyenPayment.SCHEME,
+    //     MOCK_COMPONENT_DATA,
+    //     MOCK_PAYMENT_DETAILS,
+    //   );
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   const handleAFTERPAYButtonPress = () => {
     console.log('handleAFTERPAYButtonPress');
     setStatus(STATUS.initiated);
 
-    try {
-      AdyenPayment.startPayment(
-        AdyenPayment.AFTERPAY,
-        MOCK_COMPONENT_DATA,
-        MOCK_PAYMENT_DETAILS,
-      );
-    } catch (err) {
-      console.error(err);
-    }
+    // try {
+    //   AdyenPayment.startPayment(
+    //     AdyenPayment.AFTERPAY,
+    //     MOCK_COMPONENT_DATA,
+    //     MOCK_PAYMENT_DETAILS,
+    //   );
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   const handleAPPLEPAYButtonPress = () => {
     console.log('handleAPPLEPAYButtonPress');
     setStatus(STATUS.initiated);
 
-    try {
-      AdyenPayment.startPayment(
-        AdyenPayment.APPLE_PAY,
-        MOCK_COMPONENT_DATA,
-        MOCK_PAYMENT_DETAILS,
-      );
-    } catch (err) {
-      console.error(err);
-    }
+    // try {
+    //   AdyenPayment.startPayment(
+    //     AdyenPayment.APPLE_PAY,
+    //     MOCK_COMPONENT_DATA,
+    //     MOCK_PAYMENT_DETAILS,
+    //   );
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   return (
