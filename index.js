@@ -84,7 +84,6 @@ export default {
         }
     },
     startCustomPayment(component,componentData,paymentDetails,paymentMethods){
-        console.log(paymentMethods);
         const default_components = [DROPIN,IDEAL,MOLPAY_MALAYSIA,MOLPAY_THAILAND,MOLPAY_VIETNAM,DOTPAY,
             EPS,ENTERCASH,OPEN_BANKING,SCHEME,SEPA,BCMC];
         var supported_components;
