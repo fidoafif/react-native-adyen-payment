@@ -46,3 +46,4 @@ buck-out/
 
 # Yarn
 yarn.lock
+Podfile.lock
