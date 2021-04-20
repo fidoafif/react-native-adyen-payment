@@ -69,6 +69,7 @@ import com.rnlib.adyen.ui.LoadingDialogFragment
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import org.json.JSONArray
 
 class AdyenPaymentModule(private var reactContext : ReactApplicationContext) : ReactContextBaseJavaModule(reactContext),ActivityEventListener {
 
@@ -235,11 +236,32 @@ class AdyenPaymentModule(private var reactContext : ReactApplicationContext) : R
 
     fun showPayment(component : String,componentData : ReadableMap,paymentDetails : ReadableMap) {
         paymentData = ReactNativeUtils.convertMapToJson(paymentDetails)
+        val allowedPaymentMethods = ArrayList<String>()
+
+        val apMethods = paymentData.getJSONArray("allowedPaymentMethods")
+        if(apMethods != null && apMethods.length() > 0){
+            for (i in 0 until apMethods.length()) {
+                allowedPaymentMethods.add(apMethods.getString(i))
+            }
+        }
+
         val compData = ReactNativeUtils.convertMapToJson(componentData)
         val additionalData: MutableMap<String, String> = linkedMapOf()
-        val paymentMethodReq : PaymentMethodsRequest = PaymentMethodsRequest(paymentData.getString("merchantAccount"),
-            paymentData.getString("shopperReference"),additionalData,ArrayList<String>(),getAmt(paymentData.getJSONObject("amount")),
-                 ArrayList<String>(),paymentData.getString("countryCode"),paymentData.getString("shopperLocale"),"Android")
+        val paymentMethodReq : PaymentMethodsRequest = PaymentMethodsRequest(
+            paymentData.getString("merchantAccount"),
+            paymentData.getString("shopperReference"),
+            additionalData,
+            allowedPaymentMethods,
+            getAmt(paymentData.getJSONObject("amount")),
+            ArrayList<String>(),
+            paymentData.getString("countryCode"),
+            paymentData.getString("shopperLocale"),
+            "Android"
+        )
+
+        Log.d("ReactLOG_paymentMethodReq", paymentData.getJSONArray("allowedPaymentMethods").toString())
+        Log.d("ReactLOG_paymentMethodReq", paymentMethodReq.toString())
+        Log.d("ReactLOG_allowedPaymentMethods", allowedPaymentMethods.toString())
 
         val paymentMethods : Call<ResponseBody> = ApiService.checkoutApi(configData.base_url).paymentMethods(configData.app_url_headers,paymentMethodReq)
         setLoading(true)
