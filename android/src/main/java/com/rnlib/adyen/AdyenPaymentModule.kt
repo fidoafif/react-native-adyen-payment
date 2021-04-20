@@ -259,10 +259,6 @@ class AdyenPaymentModule(private var reactContext : ReactApplicationContext) : R
             "Android"
         )
 
-        Log.d("ReactLOG_paymentMethodReq", paymentData.getJSONArray("allowedPaymentMethods").toString())
-        Log.d("ReactLOG_paymentMethodReq", paymentMethodReq.toString())
-        Log.d("ReactLOG_allowedPaymentMethods", allowedPaymentMethods.toString())
-
         val paymentMethods : Call<ResponseBody> = ApiService.checkoutApi(configData.base_url).paymentMethods(configData.app_url_headers,paymentMethodReq)
         setLoading(true)
         paymentMethods.enqueue(object : retrofit2.Callback<ResponseBody> {
