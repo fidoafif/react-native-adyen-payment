@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F932A1C262F7D2100977917 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F932A1B262F7D2100977917 /* File.swift */; };
 		3B2782032372BA5000032580 /* PaymentMethodsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2782022372BA5000032580 /* PaymentMethodsRequest.swift */; };
 		3B4E60192372FF2C00155FB6 /* CodingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E60182372FF2C00155FB6 /* CodingHelpers.swift */; };
 		3BCAF1122372A99400D4FAF4 /* AdyenPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAF1112372A99400D4FAF4 /* AdyenPayment.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F932A1B262F7D2100977917 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		134814201AA4EA6300B7C361 /* libAdyenPayment.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAdyenPayment.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B2782022372BA5000032580 /* PaymentMethodsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsRequest.swift; sourceTree = "<group>"; };
 		3B4E60182372FF2C00155FB6 /* CodingHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodingHelpers.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				0F932A1B262F7D2100977917 /* File.swift */,
 				3BCAF1112372A99400D4FAF4 /* AdyenPayment.swift */,
 				B3E7B5891CC2AC0600A0062D /* AdyenPayment.m */,
 				3BCAF1102372A99400D4FAF4 /* AdyenPayment-Bridging-Header.h */,
@@ -142,6 +145,7 @@
 				3BCAF1192372B15600D4FAF4 /* PaymentsRequest.swift in Sources */,
 				3B4E60192372FF2C00155FB6 /* CodingHelpers.swift in Sources */,
 				3BCAF1172372B15600D4FAF4 /* PaymentDetailsRequest.swift in Sources */,
+				0F932A1C262F7D2100977917 /* File.swift in Sources */,
 				3BCAF1182372B15600D4FAF4 /* APIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,9 +198,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -237,8 +243,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
