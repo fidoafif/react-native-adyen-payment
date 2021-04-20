@@ -16,6 +16,7 @@ internal struct PaymentMethodsRequest: Request {
     internal func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(PaymentsData.merchantAccount, forKey: .merchantAccount)
+        try container.encode(PaymentsData.allowedPaymentMethods, forKey: .allowedPaymentMethods)
         try container.encode(PaymentsData.countryCode, forKey: .countryCode)
         try container.encode(PaymentsData.shopperReference, forKey: .shopperReference)
         try container.encode(["value": PaymentsData.amount.value,"currency":PaymentsData.amount.currencyCode], forKey: .amount)
@@ -47,4 +48,3 @@ internal struct PaymentMethodsResponse: Response {
     }
     
 }
-

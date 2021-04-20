@@ -46,6 +46,7 @@ class AdyenPayment: RCTEventEmitter {
     
     func setPaymentDetails(_ paymentDetails : NSDictionary){
         let amount = paymentDetails["amount"] as! [String : Any]
+        let allowedPaymentMethods = paymentDetails["allowedPaymentMethods"] as? [String]
         let additionalData = paymentDetails["additionalData"] as? [String : Any]
         PaymentsData.amount = Payment.Amount(value: amount["value"] as! Int, currencyCode: amount["currency"] as! String)
         PaymentsData.reference = paymentDetails["reference"] as! String
@@ -55,6 +56,11 @@ class AdyenPayment: RCTEventEmitter {
         PaymentsData.shopperEmail = paymentDetails["shopperEmail"] as! String
         PaymentsData.shopperLocale = paymentDetails["shopperLocale"] as! String
         PaymentsData.merchantAccount = paymentDetails["merchantAccount"] as! String
+        
+        if(allowedPaymentMethods != nil) {
+            PaymentsData.allowedPaymentMethods = paymentDetails["allowedPaymentMethods"] as! [String]
+        }
+        
         if(additionalData != nil){
             let allow3DS2 : Bool = (additionalData?["allow3DS2"] != nil) ? additionalData?["allow3DS2"] as! Bool : false
             let executeThreeD : Bool = (additionalData?["executeThreeD"] != nil) ? additionalData?["executeThreeD"] as! Bool : false

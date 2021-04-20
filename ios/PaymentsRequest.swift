@@ -17,6 +17,7 @@ internal struct PaymentsData {
     static var shopperReference: String = ""
     static var shopperEmail: String = ""
     static var merchantAccount : String = ""
+    static var allowedPaymentMethods : [String] = [String]()
     static var additionalData : [String : Any] = ["allow3DS2": true,"executeThreeD":true]
 }
 
@@ -49,6 +50,7 @@ internal struct PaymentsRequest: Request {
         try container.encode(PaymentsData.shopperEmail, forKey: .shopperEmail)
         try container.encode(PaymentsData.shopperLocale, forKey: .shopperLocale)
         try container.encode(PaymentsData.additionalData, forKey: .additionalData)
+        try container.encode(PaymentsData.merchantAccount, forKey: .merchantAccount)
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -100,6 +102,7 @@ internal struct PaymentsResponse: Response {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.resultCode = try container.decodeIfPresent(ResultCode.self, forKey: .resultCode)
         self.action = try container.decodeIfPresent(Action.self, forKey: .action)
+
         self.pspReference = try container.decodeIfPresent(String.self,forKey: .pspReference)
         self.additionalData = try container.decodeIfPresent([String: Any].self,forKey: .additionalData)
         self.merchantReference = try container.decodeIfPresent(String.self, forKey: .merchantReference)
@@ -186,7 +189,4 @@ internal extension PaymentsResponse {
         case identifyShopper = "IdentifyShopper"
         case challengeShopper = "ChallengeShopper"
     }
-    
-    
-    
 }
