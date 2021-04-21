@@ -18,7 +18,5 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   s.dependency "Adyen","3.8.4"
-  s.dependency "Adyen/WeChatPay"
-  s.dependency "Adyen/SwiftUI"
 end
 
