@@ -24,9 +24,6 @@ internal final class APIClient {
             return
         }
         
-        print(" ---- Request (/\(request.path)) ----")
-        printAsJSON(body)
-        
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.httpBody = body
@@ -37,7 +34,14 @@ internal final class APIClient {
                 url_headers[key] = value as String
             }
         }
+        
         urlRequest.allHTTPHeaderFields = url_headers
+        
+        print(" ---- Request (/\(request.path)) ----")
+        print("\(urlRequest.httpMethod ?? "") \(urlRequest.url!)")
+        let str = String(decoding: urlRequest.httpBody!, as: UTF8.self)
+        print("BODY \n \(str)")
+        print("HEADERS \n \(urlRequest.allHTTPHeaderFields!)")
         
         requestCounter += 1
         
@@ -76,8 +80,15 @@ internal final class APIClient {
     
     private var requestCounter = 0 {
         didSet {
-            let application = UIApplication.shared
-            application.isNetworkActivityIndicatorVisible = self.requestCounter > 0
+            if Thread.isMainThread {
+                let application = UIApplication.shared
+                application.isNetworkActivityIndicatorVisible = self.requestCounter > 0
+               } else {
+                 DispatchQueue.main.sync {
+                    let application = UIApplication.shared
+                    application.isNetworkActivityIndicatorVisible = self.requestCounter > 0
+                 }
+               }
         }
     }
     
