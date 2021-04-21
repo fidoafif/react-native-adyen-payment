@@ -41,6 +41,7 @@ internal struct PaymentsRequest: Request {
         
         try container.encode(data.paymentMethod.encodable, forKey: .details)
         try container.encode(data.storePaymentMethod, forKey: .storePaymentMethod)
+        try container.encodeIfPresent(data.browserInfo, forKey: .browserInfo)
         try container.encode("iOS", forKey: .channel)
         try container.encode(amount, forKey: .amount)
         try container.encode(PaymentsData.reference, forKey: .reference)
@@ -66,6 +67,7 @@ internal struct PaymentsRequest: Request {
         case shopperLocale
         case additionalData
         case merchantAccount
+        case browserInfo
     }
     
 }
